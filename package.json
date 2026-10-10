@@ -1,14 +1,14 @@
 {
-  "name": "@iringo/engineering-solutions",
+  "name": "@nsnanocat/engineering-solutions",
   "private": true,
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "prepare": "husky",
-    "build": "cross-env NX_DAEMON=false nx run-many -t build --exclude @examples/* @e2e/* --parallel=10",
-    "mk:dev": "nx run-many -t dev --projects=@iringo/utils,@iringo/modkit* --parallel=10",
-    "mk:build": "nx run-many -t build --projects=@iringo/utils,@iringo/modkit* --parallel=10",
-    "mk:test": "nx run-many -t test --projects=@iringo/utils,@iringo/modkit* --parallel=10",
+    "build": "cross-env NX_DAEMON=false nx run-many -t build --exclude @examples/* @e2e/* @iringo/doc-ui --parallel=10",
+    "mk:dev": "nx run-many -t dev --projects=@nsnanocat/utils,@nsnanocat/modkit* --parallel=10",
+    "mk:build": "nx run-many -t build --projects=@nsnanocat/utils,@nsnanocat/modkit* --parallel=10",
+    "mk:test": "nx run-many -t test --projects=@nsnanocat/utils,@nsnanocat/modkit* --parallel=10",
     "change": "changeset"
   },
   "author": "",

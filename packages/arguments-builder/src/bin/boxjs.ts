@@ -1,5 +1,5 @@
 import path from 'node:path';
-import { logger } from '@iringo/utils';
+import { logger } from '@nsnanocat/utils';
 import type { ArgumentsBuilder } from '../core';
 import type { Output } from './config';
 import { safeWriteFile } from './utils';
@@ -11,5 +11,6 @@ export const buildBoxJsSettings = async (builder: ArgumentsBuilder, output: Outp
     logger.success(`Successfully generated boxjs settings to ${outputPath}`);
   } catch (error) {
     logger.error(`Failed to generate boxjs settings to ${outputPath}`, error);
+    throw error;
   }
 };

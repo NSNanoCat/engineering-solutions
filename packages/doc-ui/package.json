@@ -27,7 +27,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/NSRingo/engineering-solutions",
+    "url": "https://github.com/NSNanoCat/engineering-solutions",
     "directory": "packages/utils"
-  }
+  },
+  "private": true
 }

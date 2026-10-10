@@ -1,6 +1,6 @@
 import path from 'node:path';
-import { address } from '@iringo/utils';
 import { createContext } from '@modern-js/plugin';
+import { address } from '@nsnanocat/utils';
 
 export const initAppContext = ({
   appDirectory,

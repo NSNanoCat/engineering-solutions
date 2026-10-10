@@ -1,4 +1,4 @@
-import type { ModuleContent } from '@iringo/modkit-shared';
+import type { ModuleContent } from '@nsnanocat/modkit-shared';
 
 export type { ModuleContent };
 

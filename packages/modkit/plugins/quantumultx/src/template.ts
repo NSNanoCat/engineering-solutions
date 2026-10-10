@@ -1,4 +1,4 @@
-import { type RuleType, Template, logger } from '@iringo/modkit-shared';
+import { type RuleType, Template, logger } from '@nsnanocat/modkit-shared';
 
 const ruleTypeMap: Record<RuleType, string | undefined> = {
   DOMAIN: 'host',

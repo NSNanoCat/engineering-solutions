@@ -1,5 +1,5 @@
 {
-  "extends": "@iringo/modkit-config/tsconfig",
+  "extends": "@nsnanocat/modkit-config/tsconfig",
   "compilerOptions": {
     "outDir": "./dist",
     "baseUrl": "./"

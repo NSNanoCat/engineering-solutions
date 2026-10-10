@@ -1,7 +1,7 @@
-import '@iringo/modkit-shared';
+import '@nsnanocat/modkit-shared';
 import type { BoxJsType } from '../dist';
 
-declare module '@iringo/modkit-shared' {
+declare module '@nsnanocat/modkit-shared' {
   interface ModkitPluginName {
     boxjs: 'boxjs';
   }

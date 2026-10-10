@@ -1,2 +1,2 @@
-export * from '@iringo/modkit-plugin-stash';
-export type * from '@iringo/modkit-plugin-stash/types';
+export * from '@nsnanocat/modkit-plugin-stash';
+export type * from '@nsnanocat/modkit-plugin-stash/types';

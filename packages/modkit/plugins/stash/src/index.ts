@@ -1,4 +1,4 @@
-import type { ModkitPlugin } from '@iringo/modkit-shared';
+import type { ModkitPlugin } from '@nsnanocat/modkit-shared';
 import { StashTemplate } from './template';
 
 export const pluginStash = (): ModkitPlugin => {

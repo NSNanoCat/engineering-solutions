@@ -1,4 +1,11 @@
 {
   "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "lib": ["ESNext", "DOM"],
+    "paths": {
+      "@nsnanocat/arguments-builder": ["src/index.ts"],
+      "puppeteer": ["../surge2egern/node_modules/puppeteer"]
+    }
+  },
   "include": ["**/*.ts"]
 }

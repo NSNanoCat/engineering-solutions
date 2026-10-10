@@ -1,5 +1,5 @@
-import { logger } from '@iringo/utils';
 import { type AsyncManager, createAsyncManager, createAsyncWorkflow, createWorkflow } from '@modern-js/plugin';
+import { logger } from '@nsnanocat/utils';
 
 import type {
   CommandsParams,

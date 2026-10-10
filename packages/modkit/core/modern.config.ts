@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { dualBuildConfigs } from '@iringo/modkit-config/modern.config.ts';
 import { type PartialBaseBuildConfig, defineConfig, moduleTools } from '@modern-js/module-tools';
+import { dualBuildConfigs } from '@nsnanocat/modkit-config/modern.config.ts';
 
 const getPluginsEntry = () => {
   const pluginDir = path.resolve('./src/exports-plugins');

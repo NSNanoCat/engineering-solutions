@@ -1,4 +1,4 @@
-import type { ArgumentItem } from '@iringo/arguments-builder';
+import type { ArgumentItem } from '@nsnanocat/arguments-builder';
 
 export const testArgs: ArgumentItem[] = [
   {

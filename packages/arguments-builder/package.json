@@ -1,6 +1,6 @@
 {
-  "name": "@iringo/arguments-builder",
-  "version": "1.8.5",
+  "name": "@nsnanocat/arguments-builder",
+  "version": "1.8.6",
   "private": false,
   "main": "dist/lib/index.js",
   "types": "dist/types/index.d.ts",
@@ -14,8 +14,8 @@
     "test": "jest"
   },
   "dependencies": {
-    "@iringo/surge2egern": "workspace:^",
-    "@iringo/utils": "workspace:^",
+    "@nsnanocat/surge2egern": "workspace:^",
+    "@nsnanocat/utils": "workspace:^",
     "commander": "^12.1.0",
     "date-fns": "^4.1.0",
     "handlebars": "^4.7.8",
@@ -34,7 +34,10 @@
   "files": ["dist", "CHANGELOG.md"],
   "repository": {
     "type": "git",
-    "url": "https://github.com/NSRingo/engineering-solutions",
+    "url": "https://github.com/NSNanoCat/engineering-solutions",
     "directory": "packages/arguments-builder"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

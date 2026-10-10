@@ -1,2 +1,2 @@
-export * from '@iringo/modkit-plugin-boxjs';
-export type * from '@iringo/modkit-plugin-boxjs/types';
+export * from '@nsnanocat/modkit-plugin-boxjs';
+export type * from '@nsnanocat/modkit-plugin-boxjs/types';

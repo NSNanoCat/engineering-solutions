@@ -1,6 +1,6 @@
 {
-  "name": "@iringo/surge2egern",
-  "version": "1.2.0",
+  "name": "@nsnanocat/surge2egern",
+  "version": "1.2.1",
   "main": "dist/lib/index.js",
   "module": "dist/es/index.js",
   "types": "dist/types/index.d.ts",
@@ -21,7 +21,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/NSRingo/engineering-solutions",
+    "url": "https://github.com/NSNanoCat/engineering-solutions",
     "directory": "packages/surge2egern"
-  }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": ["dist", "CHANGELOG.md"]
 }

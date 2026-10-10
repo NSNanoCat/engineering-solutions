@@ -1,6 +1,6 @@
 {
-  "name": "@iringo/modkit",
-  "version": "1.3.3",
+  "name": "@nsnanocat/modkit",
+  "version": "1.3.4",
   "description": "",
   "exports": {
     ".": {
@@ -24,19 +24,19 @@
   },
   "files": ["dist", "bin", "CHANGELOG.md"],
   "dependencies": {
-    "@iringo/modkit-plugin-boxjs": "workspace:^",
-    "@iringo/modkit-plugin-dts": "workspace:^",
-    "@iringo/modkit-plugin-loon": "workspace:^",
-    "@iringo/modkit-plugin-stash": "workspace:^",
-    "@iringo/modkit-plugin-surge": "workspace:^",
-    "@iringo/modkit-shared": "workspace:^",
+    "@nsnanocat/modkit-plugin-boxjs": "workspace:^",
+    "@nsnanocat/modkit-plugin-dts": "workspace:^",
+    "@nsnanocat/modkit-plugin-loon": "workspace:^",
+    "@nsnanocat/modkit-plugin-stash": "workspace:^",
+    "@nsnanocat/modkit-plugin-surge": "workspace:^",
+    "@nsnanocat/modkit-shared": "workspace:^",
     "@rsbuild/core": "^1.1.0",
     "@rspack/core": "^1.1.0",
     "express": "^4.21.1",
     "minimist": "^1.2.8"
   },
   "devDependencies": {
-    "@iringo/modkit-config": "workspace:^",
+    "@nsnanocat/modkit-config": "workspace:^",
     "@modern-js/module-tools": "^2.60.2",
     "@types/express": "^4.17.21",
     "@types/minimist": "^1.2.5",
@@ -45,7 +45,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/NSRingo/engineering-solutions",
+    "url": "https://github.com/NSNanoCat/engineering-solutions",
     "directory": "packages/modkit/core"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

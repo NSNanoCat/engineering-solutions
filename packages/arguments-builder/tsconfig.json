@@ -2,12 +2,13 @@
   "compilerOptions": {
     "lib": ["ESNext"],
     "strict": true,
+    "esModuleInterop": true,
     "skipLibCheck": true,
     "baseUrl": ".",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "paths": {
-      "@iringo/arguments-builder": ["src/index.ts"]
+      "@nsnanocat/arguments-builder": ["src/index.ts"]
     }
   },
   "include": ["src/**/*"]

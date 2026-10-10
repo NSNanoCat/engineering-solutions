@@ -12,7 +12,7 @@ import {
   logger,
   manager,
   runMaybeAsync,
-} from '@iringo/modkit-shared';
+} from '@nsnanocat/modkit-shared';
 import type { RsbuildInstance } from '@rsbuild/core';
 import express from 'express';
 import minimist from 'minimist';
@@ -54,7 +54,7 @@ export class ModKitCli {
     this.#handleBuildCommand();
     this.#handleDevCommand({ configFilePath });
 
-    this.program.parse(process.argv);
+    await this.program.parseAsync(process.argv);
   }
 
   async #init() {

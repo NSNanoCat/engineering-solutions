@@ -1,5 +1,12 @@
 # @iringo/surge2egern
 
+## 1.2.1
+
+### Patch Changes
+
+- Release Chrome when page creation or navigation fails, as well as after conversion cleanup.
+- Migrate the public packages to the NSNanoCat scope. Keep the existing APIs, CLI names and module entry points.
+
 ## 1.2.0
 
 ### Minor Changes

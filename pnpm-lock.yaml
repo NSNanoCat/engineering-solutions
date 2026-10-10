@@ -32,10 +32,10 @@ importers:
 
   packages/arguments-builder:
     dependencies:
-      '@iringo/surge2egern':
+      '@nsnanocat/surge2egern':
         specifier: workspace:^
         version: link:../surge2egern
-      '@iringo/utils':
+      '@nsnanocat/utils':
         specifier: workspace:^
         version: link:../utils
       commander:
@@ -109,12 +109,12 @@ importers:
 
   packages/modkit/config:
     devDependencies:
-      '@iringo/utils':
-        specifier: workspace:^
-        version: link:../../utils
       '@modern-js/module-tools':
         specifier: ^2.60.2
         version: 2.60.2(typescript@5.6.2)
+      '@nsnanocat/utils':
+        specifier: workspace:^
+        version: link:../../utils
       '@types/node':
         specifier: ^20.0.0
         version: 20.16.10
@@ -124,22 +124,22 @@ importers:
 
   packages/modkit/core:
     dependencies:
-      '@iringo/modkit-plugin-boxjs':
+      '@nsnanocat/modkit-plugin-boxjs':
         specifier: workspace:^
         version: link:../plugins/boxjs
-      '@iringo/modkit-plugin-dts':
+      '@nsnanocat/modkit-plugin-dts':
         specifier: workspace:^
         version: link:../plugins/dts
-      '@iringo/modkit-plugin-loon':
+      '@nsnanocat/modkit-plugin-loon':
         specifier: workspace:^
         version: link:../plugins/loon
-      '@iringo/modkit-plugin-stash':
+      '@nsnanocat/modkit-plugin-stash':
         specifier: workspace:^
         version: link:../plugins/stash
-      '@iringo/modkit-plugin-surge':
+      '@nsnanocat/modkit-plugin-surge':
         specifier: workspace:^
         version: link:../plugins/surge
-      '@iringo/modkit-shared':
+      '@nsnanocat/modkit-shared':
         specifier: workspace:^
         version: link:../shared
       '@rsbuild/core':
@@ -155,12 +155,12 @@ importers:
         specifier: ^1.2.8
         version: 1.2.8
     devDependencies:
-      '@iringo/modkit-config':
-        specifier: workspace:^
-        version: link:../config
       '@modern-js/module-tools':
         specifier: ^2.60.2
         version: 2.60.2(typescript@5.6.2)
+      '@nsnanocat/modkit-config':
+        specifier: workspace:^
+        version: link:../config
       '@types/express':
         specifier: ^4.17.21
         version: 4.17.21
@@ -176,16 +176,16 @@ importers:
 
   packages/modkit/plugins/boxjs:
     dependencies:
-      '@iringo/modkit-shared':
+      '@nsnanocat/modkit-shared':
         specifier: workspace:^
         version: link:../../shared
     devDependencies:
-      '@iringo/modkit-config':
-        specifier: workspace:^
-        version: link:../../config
       '@modern-js/module-tools':
         specifier: ^2.60.2
         version: 2.60.2(typescript@5.6.2)
+      '@nsnanocat/modkit-config':
+        specifier: workspace:^
+        version: link:../../config
       '@test/modkit':
         specifier: workspace:^
         version: link:../../tests
@@ -207,19 +207,19 @@ importers:
 
   packages/modkit/plugins/dts:
     dependencies:
-      '@iringo/modkit-shared':
+      '@nsnanocat/modkit-shared':
         specifier: workspace:^
         version: link:../../shared
       ts-morph:
         specifier: ^23.0.0
         version: 23.0.0
     devDependencies:
-      '@iringo/modkit-config':
-        specifier: workspace:^
-        version: link:../../config
       '@modern-js/module-tools':
         specifier: ^2.60.2
         version: 2.60.2(typescript@5.6.2)
+      '@nsnanocat/modkit-config':
+        specifier: workspace:^
+        version: link:../../config
       '@test/modkit':
         specifier: workspace:^
         version: link:../../tests
@@ -241,19 +241,19 @@ importers:
 
   packages/modkit/plugins/egern:
     dependencies:
-      '@iringo/modkit-shared':
+      '@nsnanocat/modkit-shared':
         specifier: workspace:^
         version: link:../../shared
-      '@iringo/surge2egern':
+      '@nsnanocat/surge2egern':
         specifier: workspace:^
         version: link:../../../surge2egern
     devDependencies:
-      '@iringo/modkit-config':
-        specifier: workspace:^
-        version: link:../../config
       '@modern-js/module-tools':
         specifier: ^2.60.2
         version: 2.60.2(typescript@5.6.2)
+      '@nsnanocat/modkit-config':
+        specifier: workspace:^
+        version: link:../../config
       '@types/node':
         specifier: ^20.0.0
         version: 20.16.10
@@ -263,16 +263,16 @@ importers:
 
   packages/modkit/plugins/loon:
     dependencies:
-      '@iringo/modkit-shared':
+      '@nsnanocat/modkit-shared':
         specifier: workspace:^
         version: link:../../shared
     devDependencies:
-      '@iringo/modkit-config':
-        specifier: workspace:^
-        version: link:../../config
       '@modern-js/module-tools':
         specifier: ^2.60.2
         version: 2.60.2(typescript@5.6.2)
+      '@nsnanocat/modkit-config':
+        specifier: workspace:^
+        version: link:../../config
       '@test/modkit':
         specifier: workspace:^
         version: link:../../tests
@@ -294,16 +294,16 @@ importers:
 
   packages/modkit/plugins/quantumultx:
     dependencies:
-      '@iringo/modkit-shared':
+      '@nsnanocat/modkit-shared':
         specifier: workspace:^
         version: link:../../shared
     devDependencies:
-      '@iringo/modkit-config':
-        specifier: workspace:^
-        version: link:../../config
       '@modern-js/module-tools':
         specifier: ^2.60.2
         version: 2.60.2(typescript@5.6.2)
+      '@nsnanocat/modkit-config':
+        specifier: workspace:^
+        version: link:../../config
       '@test/modkit':
         specifier: workspace:^
         version: link:../../tests
@@ -325,19 +325,19 @@ importers:
 
   packages/modkit/plugins/stash:
     dependencies:
-      '@iringo/modkit-shared':
+      '@nsnanocat/modkit-shared':
         specifier: workspace:^
         version: link:../../shared
       yaml:
         specifier: ^2.6.0
         version: 2.6.0
     devDependencies:
-      '@iringo/modkit-config':
-        specifier: workspace:^
-        version: link:../../config
       '@modern-js/module-tools':
         specifier: ^2.60.2
         version: 2.60.2(typescript@5.6.2)
+      '@nsnanocat/modkit-config':
+        specifier: workspace:^
+        version: link:../../config
       '@test/modkit':
         specifier: workspace:^
         version: link:../../tests
@@ -359,19 +359,19 @@ importers:
 
   packages/modkit/plugins/surge:
     dependencies:
-      '@iringo/modkit-shared':
+      '@nsnanocat/modkit-shared':
         specifier: workspace:^
         version: link:../../shared
       qrcode-terminal:
         specifier: ^0.12.0
         version: 0.12.0
     devDependencies:
-      '@iringo/modkit-config':
-        specifier: workspace:^
-        version: link:../../config
       '@modern-js/module-tools':
         specifier: ^2.60.2
         version: 2.60.2(typescript@5.6.2)
+      '@nsnanocat/modkit-config':
+        specifier: workspace:^
+        version: link:../../config
       '@test/modkit':
         specifier: workspace:^
         version: link:../../tests
@@ -396,12 +396,12 @@ importers:
 
   packages/modkit/shared:
     dependencies:
-      '@iringo/utils':
-        specifier: workspace:^
-        version: link:../../utils
       '@modern-js/plugin':
         specifier: ^2.60.4
         version: 2.60.4
+      '@nsnanocat/utils':
+        specifier: workspace:^
+        version: link:../../utils
       '@swc/helpers':
         specifier: ^0.5.13
         version: 0.5.13
@@ -412,12 +412,12 @@ importers:
         specifier: ^4.26.1
         version: 4.26.1
     devDependencies:
-      '@iringo/modkit-config':
-        specifier: workspace:^
-        version: link:../config
       '@modern-js/module-tools':
         specifier: ^2.60.2
         version: 2.60.2(typescript@5.6.2)
+      '@nsnanocat/modkit-config':
+        specifier: workspace:^
+        version: link:../config
       '@rsbuild/core':
         specifier: ^1.1.0
         version: 1.1.0
@@ -436,10 +436,10 @@ importers:
 
   packages/modkit/tests:
     devDependencies:
-      '@iringo/modkit':
+      '@nsnanocat/modkit':
         specifier: workspace:^
         version: link:../core
-      '@iringo/modkit-shared':
+      '@nsnanocat/modkit-shared':
         specifier: workspace:^
         version: link:../shared
 

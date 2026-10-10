@@ -10,7 +10,7 @@ import {
   handleArgumentsDefaultValue,
   lodash,
   runMaybeAsync,
-} from '@iringo/modkit-shared';
+} from '@nsnanocat/modkit-shared';
 import { type EnvironmentConfig, type RsbuildConfig, type Rspack, createRsbuild } from '@rsbuild/core';
 import { type Compilation, rspack } from '@rspack/core';
 

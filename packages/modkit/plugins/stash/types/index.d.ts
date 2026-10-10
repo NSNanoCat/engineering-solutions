@@ -1,6 +1,6 @@
-import '@iringo/modkit-shared';
+import '@nsnanocat/modkit-shared';
 
-declare module '@iringo/modkit-shared' {
+declare module '@nsnanocat/modkit-shared' {
   interface ModkitPluginName {
     stash: 'stash';
   }

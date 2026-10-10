@@ -1,4 +1,4 @@
-import { loadConfigFile, lodash, logger } from '@iringo/utils';
+import { loadConfigFile, lodash, logger } from '@nsnanocat/utils';
 import type { ModkitConfig } from '../types';
 import { handleArgumentsDefaultValue } from '../utils';
 

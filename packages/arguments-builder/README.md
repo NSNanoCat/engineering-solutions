@@ -1,13 +1,13 @@
-# @iringo/arguments-builder
+# @nsnanocat/arguments-builder
 
 用于统一维护项目参数配置的构建
 
 ## 安装
 
 ```bash
-pnpm add -D @iringo/arguments-builder
+pnpm add -D @nsnanocat/arguments-builder
 # or
-npm add -D @iringo/arguments-builder
+npm add -D @nsnanocat/arguments-builder
 ```
 
 ## 配置文件
@@ -15,7 +15,7 @@ npm add -D @iringo/arguments-builder
 默认读取 `arguments-builder.config.(ts|js|mjs)` 文件，支持 `-c` 或 `--config` 指定配置文件
 
 ```ts
-import { defineConfig } from "@iringo/arguments-builder";
+import { defineConfig } from "@nsnanocat/arguments-builder";
 
 export default defineConfig({
   // ...
@@ -24,7 +24,7 @@ export default defineConfig({
 
 ```js
 /**
- * @type {import('@iringo/arguments-builder').ArgumentsBuilderConfig}
+ * @type {import('@nsnanocat/arguments-builder').ArgumentsBuilderConfig}
  */
 module.exports = {
   // ...
@@ -99,7 +99,7 @@ npx arguments-builder (surge|loon|boxjs)
 
 ```ts
 // arguments-builder.config.ts
-import { defineConfig } from "@iringo/arguments-builder";
+import { defineConfig } from "@nsnanocat/arguments-builder";
 
 export default defineConfig({
   // ...
@@ -107,7 +107,7 @@ export default defineConfig({
 
 // arguments-builder.beta.config.ts
 import defaultConfig from "./arguments-builder.config.ts";
-import { defineConfig } from "@iringo/arguments-builder";
+import { defineConfig } from "@nsnanocat/arguments-builder";
 
 export default defineConfig({
   ...defaultConfig,
@@ -123,7 +123,7 @@ export default defineConfig({
 ## Node API
 
 ```ts
-import { ArgumentsBuilder } from "@iringo/arguments-builder";
+import { ArgumentsBuilder } from "@nsnanocat/arguments-builder";
 
 const argumentsBuilder = new ArgumentsBuilder();
 ```

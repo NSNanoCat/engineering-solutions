@@ -1,4 +1,4 @@
-import { type SourceConfig, handleArgumentsDefaultValue } from '@iringo/modkit-shared';
+import { type SourceConfig, handleArgumentsDefaultValue } from '@nsnanocat/modkit-shared';
 
 export const source: SourceConfig = {
   metadata: {

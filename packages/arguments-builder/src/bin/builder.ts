@@ -9,9 +9,6 @@ export const getBuilder = async ({
   path?: string;
 } = {}) => {
   const configData = await loadConfig({ cwd, path: configPath });
-  if (!configData) {
-    return;
-  }
   const {
     config: { output, ...rest },
     configFileDir,

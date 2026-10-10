@@ -1,11 +1,11 @@
-import { defineConfig } from '@iringo/modkit';
-import type { ModuleContent } from '@iringo/modkit';
-import { pluginEgern } from '@iringo/modkit-plugin-egern';
-import { pluginBoxJs } from '@iringo/modkit/plugins/boxjs';
-import { pluginDts } from '@iringo/modkit/plugins/dts';
-import { pluginLoon } from '@iringo/modkit/plugins/loon';
-import { pluginStash } from '@iringo/modkit/plugins/stash';
-import { pluginSurge } from '@iringo/modkit/plugins/surge';
+import { defineConfig } from '@nsnanocat/modkit';
+import type { ModuleContent } from '@nsnanocat/modkit';
+import { pluginEgern } from '@nsnanocat/modkit-plugin-egern';
+import { pluginBoxJs } from '@nsnanocat/modkit/plugins/boxjs';
+import { pluginDts } from '@nsnanocat/modkit/plugins/dts';
+import { pluginLoon } from '@nsnanocat/modkit/plugins/loon';
+import { pluginStash } from '@nsnanocat/modkit/plugins/stash';
+import { pluginSurge } from '@nsnanocat/modkit/plugins/surge';
 //import { pluginNodePolyfill } from '@rsbuild/plugin-node-polyfill';
 //import pkg from './package.json';
 const pkg = {

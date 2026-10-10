@@ -1,7 +1,7 @@
-import '@iringo/modkit-shared';
+import '@nsnanocat/modkit-shared';
 import type { LoonArgumentType } from '../dist/index';
 
-declare module '@iringo/modkit-shared' {
+declare module '@nsnanocat/modkit-shared' {
   interface ModkitPluginName {
     loon: 'loon';
   }

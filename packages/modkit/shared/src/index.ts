@@ -1,4 +1,4 @@
-export * from '@iringo/utils';
+export * from '@nsnanocat/utils';
 export * from './utils';
 export * from './config';
 export * from './plugin';

@@ -1,4 +1,4 @@
-import { type ModuleMock, Template, logger, objectEntries } from '@iringo/modkit-shared';
+import { type ModuleMock, Template, logger, objectEntries } from '@nsnanocat/modkit-shared';
 import type { LoonArgumentType } from './index';
 
 type LoonMockDataType =

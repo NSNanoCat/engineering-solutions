@@ -1,4 +1,4 @@
-import { type RuleType, Template, logger } from '@iringo/modkit-shared';
+import { type RuleType, Template, logger } from '@nsnanocat/modkit-shared';
 import YAML from 'yaml';
 import type { StashOverride } from './types';
 

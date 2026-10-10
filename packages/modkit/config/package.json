@@ -1,9 +1,9 @@
 {
-  "name": "@iringo/modkit-config",
+  "name": "@nsnanocat/modkit-config",
   "private": true,
   "version": "0.0.0",
   "devDependencies": {
-    "@iringo/utils": "workspace:^",
+    "@nsnanocat/utils": "workspace:^",
     "@modern-js/module-tools": "^2.60.2",
     "@types/node": "^20.0.0",
     "typescript": "^5.6.2"

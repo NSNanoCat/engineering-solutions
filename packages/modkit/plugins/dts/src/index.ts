@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import type { ArgumentItem, ArgumentType, ModkitPlugin } from '@iringo/modkit-shared';
+import type { ArgumentItem, ArgumentType, ModkitPlugin } from '@nsnanocat/modkit-shared';
 import { type InterfaceDeclaration, Project, SyntaxKind, type TypeLiteralNode } from 'ts-morph';
 
 const getTypeFromArgumentType = (type: ArgumentType, options?: ArgumentItem['options']): string => {

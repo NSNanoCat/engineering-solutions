@@ -1,6 +1,5 @@
 import path from 'node:path';
-import { loadConfigFile } from '@iringo/utils';
-import { logger } from '@iringo/utils';
+import { loadConfigFile } from '@nsnanocat/utils';
 import { z } from 'zod';
 import { argumentsBuilderOptionsSchema } from '../core/types';
 
@@ -70,8 +69,7 @@ export const loadConfig = async ({
   const result = argumentsBuilderConfigSchema.safeParse(config);
 
   if (!result.success) {
-    logger.error('配置文件有误', result.error);
-    return;
+    throw result.error;
   }
 
   return {

@@ -1,4 +1,4 @@
-import { Template, logger, objectEntries, toKebabCase } from '@iringo/modkit-shared';
+import { Template, logger, objectEntries, toKebabCase } from '@nsnanocat/modkit-shared';
 
 export class SurgeTemplate extends Template {
   get Metadata() {

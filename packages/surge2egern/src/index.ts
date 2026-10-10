@@ -14,9 +14,13 @@ export class Surge2Egern {
 
   async #init() {
     this.#browser = await puppeteer.launch();
-    this.#page = await this.#browser.newPage();
-
-    await this.#page.goto('https://gen.egernapp.com/', { waitUntil: 'networkidle0' });
+    try {
+      this.#page = await this.#browser.newPage();
+      await this.#page.goto('https://gen.egernapp.com/', { waitUntil: 'networkidle0' });
+    } catch (error) {
+      await this.#browser.close();
+      throw error;
+    }
   }
 
   async #findElement(title: string) {
@@ -93,6 +97,10 @@ export class Surge2Egern {
   }
 
   async destroy() {
-    await this.#browser.close();
+    // Failed initialization already releases any browser it managed to launch.
+    await this.#initPromise.then(
+      () => this.#browser.close(),
+      () => {},
+    );
   }
 }

@@ -1,6 +1,6 @@
 import type { Server } from 'node:http';
-import type { commander } from '@iringo/utils';
 import type { AsyncWorker, Worker } from '@modern-js/plugin';
+import type { commander } from '@nsnanocat/utils';
 import type { RsbuildInstance } from '@rsbuild/core';
 import type { Express } from 'express';
 import type { PluginAPI } from '../plugin/manager';

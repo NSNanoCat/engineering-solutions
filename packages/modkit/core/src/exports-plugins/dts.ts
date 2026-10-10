@@ -1,1 +1,1 @@
-export * from '@iringo/modkit-plugin-dts';
+export * from '@nsnanocat/modkit-plugin-dts';

@@ -1,6 +1,6 @@
-import '@iringo/modkit-shared';
+import '@nsnanocat/modkit-shared';
 
-declare module '@iringo/modkit-shared' {
+declare module '@nsnanocat/modkit-shared' {
   interface ModkitPluginName {
     surge: 'surge';
   }
@@ -14,6 +14,6 @@ declare module '@iringo/modkit-shared' {
   }
 
   interface PluginArgumentType {
-    surge?: import('@iringo/modkit-shared').ArgumentType | 'exclude';
+    surge?: import('@nsnanocat/modkit-shared').ArgumentType | 'exclude';
   }
 }

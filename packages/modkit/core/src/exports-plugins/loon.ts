@@ -1,2 +1,2 @@
-export * from '@iringo/modkit-plugin-loon';
-export type * from '@iringo/modkit-plugin-loon/types';
+export * from '@nsnanocat/modkit-plugin-loon';
+export type * from '@nsnanocat/modkit-plugin-loon/types';

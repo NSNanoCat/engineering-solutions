@@ -2,9 +2,10 @@
 module.exports = {
   testEnvironment: 'node',
   transform: {
-    '^.+.tsx?$': ['ts-jest', {}],
+    '^.+.tsx?$': ['ts-jest', { tsconfig: '<rootDir>/tests/tsconfig.json' }],
   },
   moduleNameMapper: {
-    '@iringo/arguments-builder': '<rootDir>/src/index.ts',
+    '^puppeteer$': '<rootDir>/../surge2egern/node_modules/puppeteer',
+    '@nsnanocat/arguments-builder': '<rootDir>/src/index.ts',
   },
 };

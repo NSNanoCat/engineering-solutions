@@ -1,5 +1,5 @@
 import path from 'node:path';
-import { logger } from '@iringo/utils';
+import { logger } from '@nsnanocat/utils';
 import type { ArgumentsBuilder } from '../core';
 import type { Output } from './config';
 import { safeWriteFile } from './utils';
@@ -16,5 +16,6 @@ export const buildDtsArguments = async (builder: ArgumentsBuilder, output: Outpu
     logger.success(`Successfully generated typescript to ${outputPath}`);
   } catch (error) {
     logger.error(`Failed to generate typescript to ${outputPath}`, error);
+    throw error;
   }
 };

@@ -11,7 +11,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@iringo/modkit": "workspace:^",
-    "@iringo/modkit-shared": "workspace:^"
+    "@nsnanocat/modkit": "workspace:^",
+    "@nsnanocat/modkit-shared": "workspace:^"
   }
 }

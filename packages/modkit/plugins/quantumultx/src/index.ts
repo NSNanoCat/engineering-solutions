@@ -1,4 +1,4 @@
-import type { ModkitPlugin } from '@iringo/modkit-shared';
+import type { ModkitPlugin } from '@nsnanocat/modkit-shared';
 import { QuantumultxTemplate } from './template';
 
 export const pluginQuantumultx = (): ModkitPlugin => {

@@ -1,4 +1,4 @@
-import { lodash } from '@iringo/utils';
+import { lodash } from '@nsnanocat/utils';
 import type { KebabCase } from 'type-fest';
 
 export const runMaybeAsync = async <T, A extends any[]>(

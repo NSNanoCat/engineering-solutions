@@ -1,5 +1,15 @@
 # @iringo/arguments-builder
 
+## 1.8.6
+
+### Patch Changes
+
+- Generate valid array properties from numeric argument indices, including nested arrays. Report configuration generation and conversion failures through a nonzero CLI exit code, and release Chrome after conversion or initialization failure.
+- Migrate the public packages to the NSNanoCat scope. Keep the existing APIs, CLI names and module entry points.
+- Updated dependencies
+  - @nsnanocat/surge2egern@1.2.1
+  - @nsnanocat/utils@1.0.3
+
 ## 1.8.5
 
 ### Patch Changes

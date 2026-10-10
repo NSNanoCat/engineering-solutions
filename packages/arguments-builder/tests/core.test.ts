@@ -1,4 +1,5 @@
-import { ArgumentsBuilder } from '@iringo/arguments-builder';
+import { ArgumentsBuilder } from '@nsnanocat/arguments-builder';
+import { Project } from 'ts-morph';
 import { testArgs } from './common';
 
 describe('ArgumentsBuilder', () => {
@@ -179,7 +180,7 @@ describe('ArgumentsBuilder', () => {
     });
     it('should generate correct Surge script params', () => {
       expect(result.scriptParams).toContain(
-        'NextHour.Provider={{{NextHour.Provider}}}&AQI.Provider={{{AQI.Provider}}}&',
+        'NextHour.Provider="{{{NextHour.Provider}}}"&AQI.Provider="{{{AQI.Provider}}}"&',
       );
     });
   });
@@ -229,5 +230,46 @@ describe('ArgumentsBuilder', () => {
       expect(result).toContain('@defaultValue ""');
       expect(result).toContain('@defaultValue "devapi.qweather.com"');
     });
+  });
+});
+
+describe('indexed argument types', () => {
+  it('merges indices, preserves nested arrays, options and scope exclusions in a compilable interface', () => {
+    const builder = new ArgumentsBuilder({
+      args: [
+        { key: 'Languages[0]', type: 'string', defaultValue: 'EN', options: [{ key: 'EN' }] },
+        { key: 'Languages[1]', type: 'string', defaultValue: 'ZH', options: [{ key: 'ZH' }] },
+        { key: 'Single[2]', type: 'boolean', defaultValue: false },
+        { key: 'Nested.Rows[0].Name', type: 'string', defaultValue: '' },
+        { key: 'Nested.Rows[1].Name', type: 'number', defaultValue: 1 },
+        { key: 'Nested.Rows[1].Enabled', type: 'boolean', defaultValue: true },
+        { key: 'Nested.Matrix[0][1]', type: 'number', defaultValue: 1 },
+        { key: 'Nested.Mode', type: 'string', defaultValue: 'auto', options: [{ key: 'auto' }] },
+        { key: 'Hidden[0]', type: 'string', defaultValue: '', exclude: ['dts'] },
+      ],
+    });
+    const project = new Project({ useInMemoryFileSystem: true, compilerOptions: { strict: true } });
+    const source = project.createSourceFile(
+      'settings.ts',
+      builder.buildDtsArguments() +
+        `
+      const valid: Settings = {
+        Languages: ['EN', 'ZH'], Single: [true],
+        Nested: { Rows: [{ Name: 'first', Enabled: true }, { Name: 1 }], Matrix: [[1]], Mode: 'auto' },
+      };
+      // @ts-expect-error unknown option must remain invalid
+      const invalid: Settings = { Languages: ['INVALID'] };
+      // @ts-expect-error excluded argument must not leak into types
+      const excluded: Settings = { Hidden: ['value'] };
+    `,
+    );
+    expect(
+      source
+        .getInterfaceOrThrow('Settings')
+        .getProperties()
+        .map((property) => property.getName()),
+    ).toEqual(['Languages', 'Single', 'Nested']);
+    expect(project.getPreEmitDiagnostics().map((diagnostic) => diagnostic.getMessageText())).toEqual([]);
+    expect(builder.buildBoxJsSettings('Settings').map((item) => item.id)).toContain('Settings.Languages[1]');
   });
 });

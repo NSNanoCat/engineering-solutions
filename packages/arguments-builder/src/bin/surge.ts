@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { Surge2Egern } from '@iringo/surge2egern';
-import { logger } from '@iringo/utils';
+import { Surge2Egern } from '@nsnanocat/surge2egern';
+import { logger } from '@nsnanocat/utils';
 import type { ArgumentsBuilder } from '../core';
 import type { Output } from './config';
 import { handlebars } from './handlebars';
@@ -13,7 +13,7 @@ export const buildSurgeArguments = async (
   configFileDir: string,
 ) => {
   const templatePath = path.resolve(configFileDir, output?.template ?? 'template/surge.handlebars');
-  if (!fs.existsSync(templatePath)) {
+  if (!output?.template && !fs.existsSync(templatePath)) {
     logger.warn('Surge template file does not exist, please check the configuration file');
     return;
   }
@@ -32,13 +32,17 @@ export const buildSurgeArguments = async (
 
     if (output?.transformEgern?.enable) {
       const surge2Egern = new Surge2Egern();
-      const egernModule = await surge2Egern.transformModule(result);
-      const egernOutputPath = output?.transformEgern?.path ?? path.resolve('egern.yaml');
-      await safeWriteFile(egernOutputPath, egernModule);
-      await surge2Egern.destroy();
-      logger.success(`Successfully generated Egern module to ${egernOutputPath}`);
+      try {
+        const egernModule = await surge2Egern.transformModule(result);
+        const egernOutputPath = output?.transformEgern?.path ?? path.resolve('egern.yaml');
+        await safeWriteFile(egernOutputPath, egernModule);
+        logger.success(`Successfully generated Egern module to ${egernOutputPath}`);
+      } finally {
+        await surge2Egern.destroy();
+      }
     }
   } catch (error) {
     logger.error(`Failed to generate Surge module to ${outputPath}`, error);
+    throw error;
   }
 };

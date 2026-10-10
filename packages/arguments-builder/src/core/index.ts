@@ -1,6 +1,6 @@
 import { Project, SyntaxKind } from 'ts-morph';
 
-import type { InterfaceDeclaration, PropertySignature, TypeLiteralNode } from 'ts-morph';
+import type { InterfaceDeclaration, TypeLiteralNode } from 'ts-morph';
 import type { ArgumentItem, ArgumentType, ArgumentsBuilderOptions, BoxJsType, LoonType } from './types';
 
 export class ArgumentsBuilder {
@@ -144,17 +144,40 @@ export class ArgumentsBuilder {
       keys: string[],
       arg: ArgumentItem,
       depth = 0,
+      inArray = false,
     ): void {
       const key = keys[depth];
+      let arrayDepth = 0;
+      while (/^\d+$/.test(keys[depth + arrayDepth + 1] ?? '')) {
+        arrayDepth++;
+      }
+      const nextDepth = depth + arrayDepth + 1;
+      const existing = parentNode.getProperty(key);
 
-      if (depth === keys.length - 1) {
+      if (nextDepth === keys.length) {
         // 最后一个 key，直接添加属性
-        const type = getTypeFromArgumentType(arg.type, arg.options);
-        const property = parentNode.addProperty({
-          name: key,
-          type: type,
-          hasQuestionToken: true,
-        });
+        let type = getTypeFromArgumentType(arg.type, arg.options);
+        if ((arrayDepth || inArray) && existing) {
+          let element = existing.getTypeNodeOrThrow();
+          for (let index = 0; index < arrayDepth; index++) {
+            element = element.asKindOrThrow(SyntaxKind.ArrayType).getElementTypeNode();
+            if (element.getKind() === SyntaxKind.ParenthesizedType) {
+              element = element.asKindOrThrow(SyntaxKind.ParenthesizedType).getTypeNode();
+            }
+          }
+          type = `${element.getText()} | ${type}`;
+        }
+        for (let index = 0; index < arrayDepth; index++) {
+          type = `(${type})[]`;
+        }
+        const property =
+          existing ??
+          parentNode.addProperty({
+            name: key,
+            type,
+            hasQuestionToken: true,
+          });
+        property.setType(type);
 
         // 构建 TSDoc 注释
         let comment = '';
@@ -180,39 +203,35 @@ export class ArgumentsBuilder {
         return;
       }
 
-      let childNode: PropertySignature | undefined;
-      if (parentNode.getKind() === SyntaxKind.InterfaceDeclaration) {
-        childNode = (parentNode as InterfaceDeclaration).getProperty(key);
-      } else {
-        childNode = (parentNode as TypeLiteralNode).getProperty(key);
-      }
-
-      if (!childNode) {
-        // 如果属性不存在，创建新的嵌套对象
-        const newProperty = parentNode.addProperty({
+      const childNode =
+        existing ??
+        parentNode.addProperty({
           name: key,
-          type: '{}',
+          type: `{}${'[]'.repeat(arrayDepth)}`,
           hasQuestionToken: true,
         });
-        const typeLiteral = newProperty.getTypeNode() as TypeLiteralNode;
-        addNestedProperty(typeLiteral, keys, arg, depth + 1);
-      } else {
-        // 如果属性已存在，检查其类型
-        const propType = childNode.getTypeNode();
-        if (propType && propType.getKind() === SyntaxKind.TypeLiteral) {
-          // 如果是对象类型，递归添加属性
-          addNestedProperty(propType as TypeLiteralNode, keys, arg, depth + 1);
-        } else {
-          // 如果不是对象类型，替换为新的对象类型
-          childNode.setType('{}');
-          const newTypeLiteral = childNode.getTypeNode() as TypeLiteralNode;
-          addNestedProperty(newTypeLiteral, keys, arg, depth + 1);
+      let typeNode = childNode.getTypeNodeOrThrow();
+      for (let index = 0; index < arrayDepth; index++) {
+        typeNode = typeNode.asKindOrThrow(SyntaxKind.ArrayType).getElementTypeNode();
+      }
+      if (typeNode.getKind() !== SyntaxKind.TypeLiteral) {
+        childNode.setType(`{}${'[]'.repeat(arrayDepth)}`);
+        typeNode = childNode.getTypeNodeOrThrow();
+        for (let index = 0; index < arrayDepth; index++) {
+          typeNode = typeNode.asKindOrThrow(SyntaxKind.ArrayType).getElementTypeNode();
         }
       }
+      addNestedProperty(
+        typeNode.asKindOrThrow(SyntaxKind.TypeLiteral),
+        keys,
+        arg,
+        nextDepth,
+        inArray || arrayDepth > 0,
+      );
     }
 
     args.forEach((arg) => {
-      const keys = arg.key.split('.');
+      const keys = arg.key.replace(/\[(\d+)\]/g, '.$1').split('.');
       addNestedProperty(settingsInterface, keys, arg);
     });
 

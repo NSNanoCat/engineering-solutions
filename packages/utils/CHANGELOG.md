@@ -1,5 +1,11 @@
 # @iringo/utils
 
+## 1.0.3
+
+### Patch Changes
+
+- Migrate the public packages to the NSNanoCat scope. Keep the existing APIs, CLI names and module entry points.
+
 ## 1.0.2
 
 ### Patch Changes

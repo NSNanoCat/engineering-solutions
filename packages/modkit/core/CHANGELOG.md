@@ -1,5 +1,19 @@
 # @iringo/modkit
 
+## 1.3.4
+
+### Patch Changes
+
+- Await asynchronous CLI commands and report build or conversion failures with a nonzero exit code.
+- Migrate the public packages to the NSNanoCat scope. Keep the existing APIs, CLI names and module entry points.
+- Updated dependencies
+  - @nsnanocat/modkit-plugin-boxjs@1.3.4
+  - @nsnanocat/modkit-plugin-dts@1.3.4
+  - @nsnanocat/modkit-plugin-loon@1.3.4
+  - @nsnanocat/modkit-plugin-stash@1.3.4
+  - @nsnanocat/modkit-plugin-surge@1.3.4
+  - @nsnanocat/modkit-shared@1.3.4
+
 ## 1.3.3
 
 ### Patch Changes

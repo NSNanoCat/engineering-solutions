@@ -1,5 +1,13 @@
 # @iringo/modkit-shared
 
+## 1.3.4
+
+### Patch Changes
+
+- Migrate the public packages to the NSNanoCat scope. Keep the existing APIs, CLI names and module entry points.
+- Updated dependencies
+  - @nsnanocat/utils@1.0.3
+
 ## 1.3.3
 
 ### Patch Changes
