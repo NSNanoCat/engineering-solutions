@@ -2,45 +2,108 @@ name: Release
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - '@nsnanocat/**'
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
+permissions:
+  contents: read
+
 jobs:
-  release:
-    name: Release
+  build:
     runs-on: ubuntu-latest
-    permissions: write-all
     steps:
       - uses: actions/checkout@v4
-
-      - run: corepack enable
-
-      - uses: actions/setup-node@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v7
         with:
-          node-version: 20
-          cache: 'pnpm'
-
-      - run: pnpm install
-
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+        env:
+          PUPPETEER_SKIP_DOWNLOAD: 'true'
       - run: pnpm build
-
-      - name: Creating .npmrc
-        run: |
-          cat << EOF > "$HOME/.npmrc"
-            //registry.npmjs.org/:_authToken=$NPM_TOKEN
-          EOF
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - uses: changesets/action@v1
-        id: changesets
+      - run: pnpm --filter @nsnanocat/arguments-builder exec tsc --noEmit
+      - run: pnpm --filter @nsnanocat/arguments-builder exec jest --runInBand
+      - run: pnpm --filter @nsnanocat/modkit-plugin-surge exec jest --runInBand
+      - run: node --test .github/scripts/release.test.mjs
+      - run: node .github/scripts/release.mjs pack
+      - uses: actions/upload-artifact@v4
         with:
-          publish: npx nx release publish --access public
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_CONFIG_PROVENANCE: true
+          name: package
+          path: release/
+          if-no-files-found: error
 
-          
+  github-packages:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: package
+          path: release/
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          registry-url: https://npm.pkg.github.com/
+          scope: '@nsnanocat'
+      - run: node .github/scripts/release.mjs publish https://npm.pkg.github.com/
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  npm:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: package
+          path: release/
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org/
+      - run: node .github/scripts/release.mjs publish https://registry.npmjs.org/
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  verify-and-release:
+    needs: [github-packages, npm]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: package
+          path: release/
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          registry-url: https://npm.pkg.github.com/
+          scope: '@nsnanocat'
+      - run: node .github/scripts/release.mjs verify https://npm.pkg.github.com/
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: node .github/scripts/release.mjs verify https://registry.npmjs.org/
+      - name: Create Release from package CHANGELOG
+        run: |
+          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
+            gh release edit "$GITHUB_REF_NAME" --notes-file release/notes.md
+            gh release upload "$GITHUB_REF_NAME" release/*.tgz release/manifest.json --clobber
+          else
+            gh release create "$GITHUB_REF_NAME" release/*.tgz release/manifest.json --title "$GITHUB_REF_NAME" --notes-file release/notes.md --verify-tag
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

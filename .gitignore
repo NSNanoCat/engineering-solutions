@@ -20,3 +20,4 @@ tsconfig.tsbuildinfo
 .history/
 .env.local
 .env.*.local
+/release/
