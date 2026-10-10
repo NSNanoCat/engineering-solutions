@@ -8,7 +8,15 @@ import { test } from 'node:test';
 const script = path.resolve('.github/scripts/release.mjs');
 
 for (const registry of ['https://registry.npmjs.org/', 'https://npm.pkg.github.com/']) {
-  for (const scenario of ['matching', 'mismatch', 'absent', 'forbidden', 'server-error', 'missing-dependency']) {
+  for (const scenario of [
+    'matching',
+    'mismatch',
+    'absent',
+    'processing',
+    'forbidden',
+    'server-error',
+    'missing-dependency',
+  ]) {
     test(`${registry}: ${scenario}`, () => {
       const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'release-test-'));
       try {
@@ -33,7 +41,11 @@ if (args[0] === 'publish') { fs.writeFileSync('published', 'yes'); process.exit(
 if (scenario === 'forbidden' || scenario === 'server-error') {
   console.log(JSON.stringify({ error: { code: scenario === 'forbidden' ? 'E403' : 'E500' } })); process.exit(1);
 }
-if (scenario === 'missing-dependency' || (scenario === 'absent' && !fs.existsSync('published'))) {
+if (scenario === 'processing' && fs.existsSync('published') && !fs.existsSync('indexed')) {
+  fs.writeFileSync('indexed', 'yes');
+  console.log(JSON.stringify({ error: { code: 'E404' } })); process.exit(1);
+}
+if (scenario === 'missing-dependency' || (['absent', 'processing'].includes(scenario) && !fs.existsSync('published'))) {
   console.log(JSON.stringify({ error: { code: 'E404' } })); process.exit(1);
 }
 console.log(JSON.stringify({ name: '@nsnanocat/test', version: '1.0.0', dist: {
@@ -52,7 +64,7 @@ console.log(JSON.stringify({ name: '@nsnanocat/test', version: '1.0.0', dist: {
             NODE_AUTH_TOKEN: '',
           },
         });
-        const expectedSuccess = ['matching', 'absent'].includes(scenario);
+        const expectedSuccess = ['matching', 'absent', 'processing'].includes(scenario);
         assert.equal(result.status, expectedSuccess ? 0 : 1, result.stderr);
         const commands = fs
           .readFileSync(path.join(directory, 'commands.jsonl'), 'utf8')
@@ -60,7 +72,7 @@ console.log(JSON.stringify({ name: '@nsnanocat/test', version: '1.0.0', dist: {
           .split('\n')
           .map(JSON.parse);
         const publications = commands.filter((command) => command[0] === 'publish');
-        assert.equal(publications.length, scenario === 'absent' ? 1 : 0);
+        assert.equal(publications.length, ['absent', 'processing'].includes(scenario) ? 1 : 0);
         if (publications.length) {
           assert.equal(publications[0][1], path.join(fs.realpathSync(directory), 'release/test.tgz'));
           assert.ok(publications[0].includes(`--registry=${registry}`));

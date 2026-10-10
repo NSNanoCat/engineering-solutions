@@ -5,6 +5,7 @@ import fs from 'node:fs';
 import { createRequire } from 'node:module';
 import os from 'node:os';
 import path from 'node:path';
+import { setTimeout } from 'node:timers/promises';
 import { pathToFileURL } from 'node:url';
 
 const npmRegistry = 'https://registry.npmjs.org/';
@@ -29,6 +30,17 @@ function checkIntegrity(published, artifact) {
   assert.equal(published.name, artifact.name);
   assert.equal(published.version, artifact.version);
   assert.equal(published.dist.integrity, artifact.integrity, 'Published tarball differs from the build artifact');
+}
+
+async function publishedMetadata(spec, registry) {
+  for (let attempt = 0; attempt < 18; attempt++) {
+    const published = metadata(spec, registry);
+    if (published) {
+      return published;
+    }
+    await setTimeout(10_000);
+  }
+  throw new Error(`${spec} is not available after publication; rerun once registry processing completes`);
 }
 
 function pack(tag) {
@@ -87,7 +99,7 @@ function pack(tag) {
   console.log(`${tag}: ${integrity}`);
 }
 
-function publish(registry) {
+async function publish(registry) {
   const artifact = json(path.join(output, 'manifest.json'));
   if (registry === npmRegistry && process.env.NODE_AUTH_TOKEN) {
     const account = run('npm', ['whoami', `--registry=${registry}`]).trim();
@@ -109,12 +121,12 @@ function publish(registry) {
   run('npm', ['publish', path.join(output, artifact.tarball), '--access=public', ...registryArgs(registry)], {
     stdio: 'inherit',
   });
-  checkIntegrity(metadata(`${artifact.name}@${artifact.version}`, registry), artifact);
+  checkIntegrity(await publishedMetadata(`${artifact.name}@${artifact.version}`, registry), artifact);
 }
 
 async function verify(registry) {
   const artifact = json(path.join(output, 'manifest.json'));
-  checkIntegrity(metadata(`${artifact.name}@${artifact.version}`, registry), artifact);
+  checkIntegrity(await publishedMetadata(`${artifact.name}@${artifact.version}`, registry), artifact);
   const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'public-package-'));
   try {
     fs.writeFileSync(path.join(directory, 'package.json'), '{"private":true,"type":"module"}');
@@ -172,7 +184,7 @@ switch (process.argv[2]) {
     pack(process.argv[3] ?? process.env.GITHUB_REF_NAME);
     break;
   case 'publish':
-    publish(process.argv[3]);
+    await publish(process.argv[3]);
     break;
   case 'verify':
     await verify(process.argv[3]);
