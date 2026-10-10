@@ -33,7 +33,7 @@ function checkIntegrity(published, artifact) {
 }
 
 async function publishedMetadata(spec, registry) {
-  for (let attempt = 0; attempt < 18; attempt++) {
+  for (let attempt = 0; attempt < 60; attempt++) {
     const published = metadata(spec, registry);
     if (published) {
       return published;
