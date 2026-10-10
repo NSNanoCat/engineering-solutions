@@ -101,11 +101,6 @@ function pack(tag) {
 
 async function publish(registry) {
   const artifact = json(path.join(output, 'manifest.json'));
-  if (registry === npmRegistry && process.env.NODE_AUTH_TOKEN) {
-    const account = run('npm', ['whoami', `--registry=${registry}`]).trim();
-    const members = JSON.parse(run('npm', ['org', 'ls', 'nsnanocat', '--json', `--registry=${registry}`]));
-    assert.ok(members[account], 'npm token is not a member of NSNanoCat');
-  }
   for (const [name, range] of Object.entries(artifact.dependencies).filter(([name]) =>
     name.startsWith('@nsnanocat/'),
   )) {

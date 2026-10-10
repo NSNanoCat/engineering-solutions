@@ -16,7 +16,7 @@ pnpm --filter @nsnanocat/modkit-plugin-surge exec jest --runInBand
 
 ## Releases
 
-Add Changesets, then run `pnpm changeset version`. Modkit packages keep their fixed version group. After checks pass, advance the release commit to `main`. Push package tags using maintainer credentials, for example `@nsnanocat/arguments-builder@1.8.6`. Main-branch pushes do not publish packages.
+Add Changesets, then run `pnpm changeset version`. Modkit packages keep their fixed version group. After checks pass, advance the release commit to `main`. Push package tags using maintainer credentials, for example `@nsnanocat/arguments-builder@1.8.7`. Main-branch pushes do not publish packages.
 
 The release workflow validates the tag, builds and checks the workspaces, and uses `pnpm pack`. GitHub Packages and npm jobs publish the same artifact with explicit registries. Existing versions are skipped only when the published integrity matches. Both registries must pass isolated installation, entry point, type and CLI checks before a GitHub Release is created from the corresponding package CHANGELOG entry.
 
@@ -24,4 +24,4 @@ For the initial migration, publish and verify utils and surge2egern first; then 
 
 GitHub publishing uses `GITHUB_TOKEN` with `packages: write`. Confirm repository association, public visibility and consumer read permissions after initial publication. Consumers route `@nsnanocat` to `https://npm.pkg.github.com/` and provide a token with package read permission.
 
-The npm bootstrap uses the existing `NPM_TOKEN` and checks organization membership before publishing. Once all twelve packages exist, configure their trusted publisher to `NSNanoCat/engineering-solutions`, workflow `release.yml`; remove token authentication from the npm publishing job and use OIDC with `id-token: write`.
+npm publishing uses OIDC with `id-token: write`, without an npm token in the release workflow. Each package's trusted publisher is `NSNanoCat/engineering-solutions`, workflow `release.yml`. A new trusted publisher must successfully publish within 48 hours to become validated; the migration's follow-up patch releases validate these connections.

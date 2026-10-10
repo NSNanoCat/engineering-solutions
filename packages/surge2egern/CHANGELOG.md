@@ -1,5 +1,11 @@
 # @iringo/surge2egern
 
+## 1.2.2
+
+### Patch Changes
+
+- Publish npm releases through the repository's GitHub Actions trusted publisher using OIDC, without a stored npm publishing token. Keep the public APIs unchanged.
+
 ## 1.2.1
 
 ### Patch Changes

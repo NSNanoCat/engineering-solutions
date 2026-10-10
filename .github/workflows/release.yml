@@ -73,8 +73,6 @@ jobs:
           node-version: 24
           registry-url: https://registry.npmjs.org/
       - run: node .github/scripts/release.mjs publish https://registry.npmjs.org/
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   verify-and-release:
     needs: [github-packages, npm]

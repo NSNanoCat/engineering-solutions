@@ -1,6 +1,6 @@
 {
   "name": "@nsnanocat/arguments-builder",
-  "version": "1.8.6",
+  "version": "1.8.7",
   "private": false,
   "main": "dist/lib/index.js",
   "types": "dist/types/index.d.ts",

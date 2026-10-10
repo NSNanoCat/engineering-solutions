@@ -1,5 +1,18 @@
 # @iringo/modkit
 
+## 1.3.5
+
+### Patch Changes
+
+- Publish npm releases through the repository's GitHub Actions trusted publisher using OIDC, without a stored npm publishing token. Keep the public APIs unchanged.
+- Updated dependencies
+  - @nsnanocat/modkit-shared@1.3.5
+  - @nsnanocat/modkit-plugin-boxjs@1.3.5
+  - @nsnanocat/modkit-plugin-dts@1.3.5
+  - @nsnanocat/modkit-plugin-loon@1.3.5
+  - @nsnanocat/modkit-plugin-stash@1.3.5
+  - @nsnanocat/modkit-plugin-surge@1.3.5
+
 ## 1.3.4
 
 ### Patch Changes
